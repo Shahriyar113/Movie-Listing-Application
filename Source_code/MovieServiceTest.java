@@ -1,19 +1,19 @@
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+package Source_code;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MovieServiceTest {
     private MovieService movieService;
 
-    @Before
-    public void initialize() {
-        movieService = new MovieService();
+    @BeforeEach
+    public void setUp() {
+        System.out.println("Hello");
+        this.movieService = new MovieService();
         Movie movie1 = new Movie("Inception", Arrays.asList("Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"), "Sci-Fi", LocalDate.of(2010, 7, 16),160000000);
         Movie movie2 = new Movie("The Matrix", Arrays.asList("Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"), "Action", LocalDate.of(1999, 3, 31), 63000000);
         Movie movie3 = new Movie("Gladiator", Arrays.asList("Russell Crowe", "Joaquin Phoenix", "Connie Nielsen"), "Historical Drama", LocalDate.of(2000, 5, 5), 103000000);
@@ -64,7 +64,7 @@ public class MovieServiceTest {
         assertTrue(searchedMovies.isEmpty());
     }
 
-    public void testSearchMoviesByCast_2() {
+    public void testSearchMoviesByCast_3() {
         
         List<Movie> searchedMovies = movieService.searchMoviesByCast(null);
         assertTrue(searchedMovies.isEmpty());
@@ -92,6 +92,7 @@ public class MovieServiceTest {
 
     }
 
+    @Test
     public void testSearchMoviesByCategory_3() {
     
         List<Movie> searchedMovies = movieService.searchMoviesByCategory(null);
@@ -106,7 +107,7 @@ public class MovieServiceTest {
         String expected_details = "Title: " + "Inception" + "\n" +
                "Cast: " + "[Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page]" + "\n" +
                "Category: " + "Sci-Fi"  + "\n" +
-               "Release Date: " + "16/7/2010" + "\n" +
+               "Release Date: " + "16/07/2010" + "\n" +
                "Budget: $" + "160000000";
         assertEquals(expected_details, searchedMovieDetails);
     }
@@ -118,7 +119,7 @@ public class MovieServiceTest {
         assertEquals("N/A", searchedMovieDetails);
     }
 
-    
+
 
 
 }

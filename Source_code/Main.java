@@ -1,5 +1,5 @@
-package Source code;
+package Source_code;
 
-public class main {
+public class Main {
     
 }

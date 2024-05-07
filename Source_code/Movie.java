@@ -1,16 +1,9 @@
+package Source_code;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.TreeSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
 
-interface MovieService {
-    List<Movie> searchMoviesByTitle(String title);
-    List<Movie> searchMoviesByCast(String castMember);
-    List<Movie> searchMoviesByCategory(String category);
-}
 
 public class Movie implements Comparable<Movie> {
     private String title;

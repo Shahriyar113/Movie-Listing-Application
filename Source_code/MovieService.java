@@ -1,7 +1,6 @@
 package Source_code;
 
 import java.util.List;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
@@ -11,7 +10,7 @@ public class MovieService {
 
     public MovieService() {
         //this treeset will store the movies in sorted order of their titles
-        this.movies = new TreeSet<>();
+        this.movies = new TreeSet<Movie>();
     }   
 
     public void addMovie(Movie movie) {
@@ -31,6 +30,8 @@ public class MovieService {
                return movie;
             }
         }
+
+    
         return new nullMovie();
     }
 

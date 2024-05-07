@@ -1,9 +1,11 @@
 package Source_code;
 
+import java.util.ArrayList;
+
 class nullMovie extends Movie{
 
-    nullMovie() {
-        super(null, null, null, null,0);
+    public nullMovie() {
+        super(null, new ArrayList<>(), null, null,0);
     }
     
     @Override

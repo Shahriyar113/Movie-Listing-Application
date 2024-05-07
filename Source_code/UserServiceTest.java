@@ -1,27 +1,28 @@
 // import static org.junit.Assert.*;
 // import org.junit.Before;
 // import org.junit.Test;
-import java.beans.Transient;
-import java.math.BigDecimal;
+package Source_code;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Set;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 public class UserServiceTest {
 
     private UserService userService;
 
-    @Before
-    public void initialize() {
-        userService = new UserService();
+    @BeforeEach
+    public void setUp() {
+        this.userService = new UserService();
     }
 
 
     @Test
     public void test_user_registration_1() {
+
         User newUser = new User("user123@example.com");
         userService.setUser(newUser);
         assertTrue(userService.is_registration_successful());
@@ -83,7 +84,7 @@ public class UserServiceTest {
         String userDetails = userService.getUserDetails();
 
         String expectedUserDetails = "email: " + "user@example.com" + "\n" +
-                                "FavoriteMovies: " + "[Inception,The Matrix]" ;
+                                "FavoriteMovies: " + "[Inception, The Matrix]" ;
         assertEquals(expectedUserDetails, userDetails);
                             
 
@@ -104,7 +105,7 @@ public class UserServiceTest {
         String expected_details1 = "Title: " + "Inception" + "\n" +
         "Cast: " + "[Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page]" + "\n" +
         "Category: " + "Sci-Fi"  + "\n" +
-        "Release Date: " + "16/7/2010" + "\n" +
+        "Release Date: " + "16/07/2010" + "\n" +
         "Budget: $" + "160000000";
 
         String searchedMovieDetails2 = userService.SearchMovieByTitleAmongFavorites("ABCD");
