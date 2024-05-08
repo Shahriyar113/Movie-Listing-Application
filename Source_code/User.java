@@ -23,10 +23,30 @@ public class User {
     }
 
     public void addFavorite(Movie movie) {
-        favorites.add(movie);
+        favorites.add(new Movie(movie.getTitle(), movie.getCast(), movie.getCategory(), movie.getRelease_date(), movie.getBudget()));
     }
 
-    public void removeFavorite(Movie movie) {
+    public boolean isMovieInFavorites(String movieTitle)
+    {
+        for(Movie movie : favorites) {
+            if(movie.getTitle().equalsIgnoreCase(movieTitle)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String SearchFavouriteMovie(String movieTitle)
+    {
+        for(Movie movie : favorites) {
+            if(movie.getTitle().equalsIgnoreCase(movieTitle)) {
+                return movie.getDetails();
+            }
+        }
+        return "Movie is not found in the favorites";
+    }
+
+    public void removeFavorite(String movieTitle) {
         favorites.remove(movie);
     }
 

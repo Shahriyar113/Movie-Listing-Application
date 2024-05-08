@@ -22,6 +22,10 @@ public class MovieService {
     
     }
 
+    public List<Movie> getAllMovies() {
+        return new ArrayList<>(movies);
+    }
+
     public Movie searchMoviesByTitle(String title) {
 
         //Assuming each movie has its unique title

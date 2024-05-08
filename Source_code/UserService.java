@@ -49,12 +49,17 @@ public class UserService {
           }
     }
 
-    public void addFavoriteMovie(Movie movie) {
+    public void addFavoriteMovie(Movie movie) { 
         user.addFavorite(movie);
     }
 
     public void removeFavoriteMovie(Movie movie) {
         user.removeFavorite(movie);
+    }
+
+    public boolean isMovieInFavorites(String movieTitle)
+    {
+        return user.isMovieInFavorites(movieTitle);
     }
 
     public String getUserDetails()
@@ -74,13 +79,7 @@ public class UserService {
     //if the movie is in the favorites list of the user
     public String SearchMovieByTitleAmongFavorites(String movieTitle)
     {
-        Set<Movie> favoriteMovies = user.getFavorites();
-        for(Movie movie : favoriteMovies) {
-            if(movie.getTitle().equalsIgnoreCase(movieTitle)) {
-                return movie.getDetails();
-            }
-        }
-        return "Movie is not found in the favorites";
+        return user.SearchFavouriteMovie(movieTitle);
     }
 
 
