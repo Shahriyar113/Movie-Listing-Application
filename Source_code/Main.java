@@ -67,7 +67,7 @@ public class Main {
 
         while(true)
         {
-            System.out.println("Provide your email address to register: ");
+            System.out.print("Provide your email address to register: ");
             String email = input.nextLine();
             //validating the email
             User user = new User(email);
@@ -106,7 +106,7 @@ public class Main {
                         }
                         while (true) {
                             System.out.println();
-                            System.out.println("Enter the title of the movie you want to see details(or enter \"back\" to go back to the main menu): ");
+                            System.out.print("Enter the title of the movie you want to see details(or enter \"back\" to go back to the main menu): ");
                             String title = input.nextLine();
                             if (title.equalsIgnoreCase("back")) {
                                 break;
@@ -122,7 +122,7 @@ public class Main {
                     } else if (choice == 2) {
                         //Search Movies by Title
                         while (true) {
-                            System.out.println("Enter the title of the movie you want to search(or enter \"back\" to go back to the main menu): ");
+                            System.out.print("Enter the title of the movie you want to search(or enter \"back\" to go back to the main menu): ");
                             String title = input.nextLine();
                             if (title.equalsIgnoreCase("back")) {
                                 break;
@@ -140,7 +140,7 @@ public class Main {
 
                         while (true) {
 
-                            System.out.println("Enter the name of the cast member(or enter \"back\" to go back to the main menu): ");
+                            System.out.print("Enter the name of the cast member(or enter \"back\" to go back to the main menu): ");
                             String castMember = input.nextLine();
                             if (castMember.equalsIgnoreCase("back")) {
                                 break;
@@ -158,7 +158,7 @@ public class Main {
                     } else if (choice == 4) {
                         //Search Movies by Category
                         while (true) {
-                            System.out.println("Enter the category of the movie you want to search(or enter \"back\" to go back to the main menu): ");
+                            System.out.print("Enter the category of the movie you want to search(or enter \"back\" to go back to the main menu): ");
                             String category = input.nextLine();
                             if (category.equalsIgnoreCase("back")) {
                                 break;
@@ -185,22 +185,15 @@ public class Main {
                             }
                             System.out.println();
 
-                            System.out.println("Now enter the title of the movie you want to add to favorites(or enter \"back\" to go back to the main menu): ");
+                            System.out.print("Now enter the title of the movie you want to add to favorites(or enter \"back\" to go back to the main menu): ");
                             String title = input.nextLine();
                             Movie searched_movie = main.movieService.searchMoviesByTitle(title);
                             if (searched_movie instanceof nullMovie) {
                                 System.out.println("No movie found with this title in our server");
                             } else {
                                 //if movie is already in the favorites, then do not add it again
-                                if(main.userService.is_movie_in_favorites(searched_movie.getTitle()))
-                                {
-                                    System.out.println("This movie is already in your favorites");
-                                }
-                                else
-                                {
-
-                                main.userService.addFavoriteMovie(searched_movie);
-                                System.out.println("Movie added to favorites");
+                                System.out.println(main.userService.addFavoriteMovie(searched_movie));
+                               
                             }
                         
                        }
@@ -217,32 +210,74 @@ public class Main {
                             index++;
                         }
                         System.out.println();
-                        System.out.println("Now enter the title of the movie you want to remove from favorites(or enter \"back\" to go back to the main menu): ");
+                        System.out.print("Now enter the title of the movie you want to remove from favorites(or enter \"back\" to go back to the main menu): ");
                         //Remove Movie from Favorites
                         String title = input.nextLine();
                         if (title.equalsIgnoreCase("back")) {
                             break;
                         }
                         
-                        if (searched_movie instanceof nullMovie) {
-                            System.out.println("No movie found with this title");
-                        } else {
+                        System.out.println(main.userService.removeFavoriteMovie(title));
                     
                 }
                         
                       }
+
+                      else if(choice == 7)
+                      {
+                        //Show Favorite Movies
+                        System.out.println("Peronal Details: ");
+                        System.out.println("-----------------");
+                        System.out.println();
+                        System.out.println(main.userService.getUserDetails());
+
+                        System.out.println("Description of your favorite movies: ");
+                        System.out.println("--------------------------------------");
+                        Set<Movie> favoriteMovies = main.userService.getUser().getFavorites();
+                        for (Movie movie : favoriteMovies) {
+                            System.out.println(movie.getDetails());
+                            System.out.println();
+                        }
+
+                        //search a movie among favorites
+                        while(true)
+                        {
+                            System.out.print("Enter the title of the movie you want to search among favorites(or enter \"back\" to go back to the main menu): ");
+                            String title = input.nextLine();
+                            if(title.equalsIgnoreCase("back"))
+                            {
+                                break;
+                            }
+                            System.out.println(main.userService.SearchMovieByTitleAmongFavorites(title));
+
+                        }
+                      }
+                      else if(choice == 8)
+                      {
+                          System.out.println("Thank you for using our system. Goodbye!");
+                          System.exit(0);
+                      }
+                      else
+                      {
+                          System.out.println("Invalid choice. Please try again");
+                      }
                 
             }
-            else
-            {
-                System.out.println("Invalid email address. Please try again");
-            }
-
+           
         }
+
+        else
+        {
+            System.out.println("Invalid email address. Please try again");
+            System.out.println();
+        }
+
 
 
     }
 
 
     
+}
+
 }
