@@ -1,4 +1,4 @@
-package Source_code;
+package Source_code.Core_code;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -59,7 +59,7 @@ public class Main {
         System.out.println("4. Search Movies by Category");
         System.out.println("5. Add Movie to Favorites");
         System.out.println("6. Remove Movie from Favorites");
-        System.out.println("7. Show Favorite Movies");
+        System.out.println("7. Show Personal Details And Favorite Movies");
         System.out.println("8. Exit");
         System.out.println();
         System.out.print("Enter your choice from (1-8): ");
@@ -216,6 +216,13 @@ public class Main {
             System.out.println("Here is the list of your favorite movies: ");
             System.out.println("-----------------------------------------");
             Set<Movie> favoriteMovies = userService.getUser().getFavorites();
+            //if no movie is in the favorites, then print "None"
+            if(favoriteMovies.isEmpty())
+            {  
+                System.out.println();
+                System.out.println("None");
+                System.out.println();
+            }
             int index = 1;
             for (Movie movie : favoriteMovies) {
                 System.out.println(String.valueOf(index)+ "." + movie.getTitle());
@@ -244,15 +251,22 @@ public class Main {
         System.out.println();
         System.out.println(userService.getUserDetails());
         System.out.println();
-        System.out.println("Description of your favorite movies: ");
-        System.out.println("--------------------------------------");
+       
     }
 
 
     public void showPersonalDetailsAndFavoriteMovies()
     {
         showPersonalDetails();
+        System.out.println("Description of your favorite movies: ");
+        System.out.println("--------------------------------------");
         Set<Movie> favoriteMovies = userService.getUser().getFavorites();
+        if(favoriteMovies.isEmpty())
+        {
+            System.out.println();
+            System.out.println("No movie in your favorite list");
+            System.out.println();
+        }
         for (Movie movie : favoriteMovies) {
             System.out.println(movie.getDetails());
             System.out.println();
@@ -318,8 +332,7 @@ public class Main {
             } else if (choice == 3) {
                 //Search Movies by Cast
                 searchMoviesByCast();
-               
-                
+          
             } else if (choice == 4) {
                 //Search Movies by Category
                 searchMoviesByCategory();
@@ -330,18 +343,17 @@ public class Main {
              
             } else if (choice == 6) {
                 //Remove Movie from Favorites
-                removeMovieFromFavorites();       
-            }
+                removeMovieFromFavorites(); 
 
-              else if(choice == 7){
+            } else if(choice == 7){
                 //Show Personal Details and Favorite Movies
-                showPersonalDetailsAndFavoriteMovies();             
-            }
-            else if(choice == 8){
-                 exit();
-            }
-            else{
-                  System.out.println("Invalid choice. Please try again");
+                showPersonalDetailsAndFavoriteMovies();    
+
+            }else if(choice == 8){
+                exit();
+                
+            }else{
+                System.out.println("Invalid choice. Please try again");
             }
         
     }

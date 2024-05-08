@@ -1,4 +1,5 @@
-package Source_code;
+package Source_code.Test_code;
+import Source_code.Core_code.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
