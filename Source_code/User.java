@@ -2,9 +2,11 @@ package Source_code;
 import java.util.Set;
 import java.util.TreeSet;
 
+
+//This class encapsulates the information of a user
 public class User {
     private String email;
-    private Set<Movie> favorites;
+    private Set<Movie> favorites; //stores the favorite movies of the user
     
 
     public User(String email) {
@@ -12,8 +14,7 @@ public class User {
         this.favorites = new TreeSet<>();
     }
 
-    // Methods to add, remove favorites, and other getters
-
+    // Getters and setters
     public String getEmail() {
         return email;
     }
@@ -23,9 +24,10 @@ public class User {
     }
 
     public void addFavorite(Movie movie) {
-        favorites.add(new Movie(movie.getTitle(), movie.getCast(), movie.getCategory(), movie.getRelease_date(), movie.getBudget()));
+        favorites.add(new Movie(movie.getTitle(), movie.getCast(), movie.getCategory(), movie.getReleaseDate(), movie.getBudget()));
     }
 
+    //this methid checks if the movie is in the favorites list
     public boolean isMovieInFavorites(String movieTitle)
     {
         for(Movie movie : favorites) {
@@ -36,6 +38,7 @@ public class User {
         return false;
     }
 
+    //this method returns the detailed information of the movie if it is in the favorites list
     public String SearchFavouriteMovie(String movieTitle)
     {
         for(Movie movie : favorites) {

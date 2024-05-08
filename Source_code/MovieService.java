@@ -9,7 +9,7 @@ public class MovieService {
     private Set<Movie> movies;
 
     public MovieService() {
-        //this treeset will store the movies in sorted order of their titles
+        //"TreeSet" is used as it will store the movies in sorted order of their titles
         this.movies = new TreeSet<Movie>();
     }   
 
@@ -28,7 +28,7 @@ public class MovieService {
 
     public Movie searchMoviesByTitle(String title) {
 
-        //Assuming each movie has its unique title
+        //Assuming each movie has a unique title
         for (Movie movie : movies) {
             if (movie.getTitle().equalsIgnoreCase(title)) {
                return movie;
@@ -36,7 +36,7 @@ public class MovieService {
         }
 
     
-        return new nullMovie();
+        return new NullMovie();
     }
 
     public List<Movie> searchMoviesByCast(String castMember) {

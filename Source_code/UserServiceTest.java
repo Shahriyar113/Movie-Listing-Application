@@ -21,31 +21,31 @@ public class UserServiceTest {
 
 
     @Test
-    public void test_user_registration_1() {
+    public void testUserRegistration_1() {
 
         User newUser = new User("user123@example.com");
         userService.setUser(newUser);
-        assertTrue(userService.is_registration_successful());
+        assertTrue(userService.isRegistrationSuccessful());
     }
 
     @Test
-    public void test_user_registration_2() {
+    public void testUserRegistration_2() {
         User newUser = new User("@example.com");
         userService.setUser(newUser);
-        assertFalse(userService.is_registration_successful());
+        assertFalse(userService.isRegistrationSuccessful());
     }
 
     @Test
-    public void test_user_registration_3() {
+    public void testUserRegistration_3() {
         User newUser = new User(null);
         userService.setUser(newUser);
-        assertFalse(userService.is_registration_successful());
+        assertFalse(userService.isRegistrationSuccessful());
     }
     @Test
-    public void test_user_registration_4() {
+    public void testUserRegistration_4() {
         User newUser = new User("abcd");
         userService.setUser(newUser);
-        assertFalse(userService.is_registration_successful());
+        assertFalse(userService.isRegistrationSuccessful());
     }
 
     @Test
@@ -53,10 +53,10 @@ public class UserServiceTest {
         User user = new User("user@example.com");
         userService.setUser(user);
         Movie newMovie = new Movie("Inception", Arrays.asList("Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"), "Sci-Fi", LocalDate.of(2010, 7, 16), 160000000);
-        String succesfully_added_msg = userService.addFavoriteMovie(newMovie);
-        assertTrue(userService.getUser().getFavorites().contains(newMovie) && succesfully_added_msg.equalsIgnoreCase("Movie added to favorites"));
-        String already_in_fav_msg = userService.addFavoriteMovie(newMovie);
-        assertTrue(userService.getUser().getFavorites().contains(newMovie) && already_in_fav_msg.equalsIgnoreCase("Movie is already in the favorites"));
+        String succesfullyAddedMsg = userService.addFavoriteMovie(newMovie);
+        assertTrue(userService.getUser().getFavorites().contains(newMovie) && succesfullyAddedMsg.equalsIgnoreCase("Movie added to favorites"));
+        String alreadyInFavMsg = userService.addFavoriteMovie(newMovie);
+        assertTrue(userService.getUser().getFavorites().contains(newMovie) && alreadyInFavMsg.equalsIgnoreCase("Movie is already in the favorites"));
     }
 
    
@@ -72,13 +72,13 @@ public class UserServiceTest {
 
         assertTrue(userService.getUser().isMovieInFavorites("Inception"));
 
-        String successfully_removed_msg = userService.removeFavoriteMovie("Inception");
+        String successfullyRemovedMsg = userService.removeFavoriteMovie("Inception");
         assertFalse(userService.getUser().isMovieInFavorites("Inception"));
-        assertTrue(successfully_removed_msg.equalsIgnoreCase("Movie removed from favorites"));
+        assertTrue(successfullyRemovedMsg.equalsIgnoreCase("Movie removed from favorites"));
 
-        String not_in_fav_msg = userService.removeFavoriteMovie("newMovie1");
+        String notInFavMsg = userService.removeFavoriteMovie("newMovie1");
         assertFalse(userService.getUser().isMovieInFavorites("Inception"));
-        assertTrue(not_in_fav_msg.equalsIgnoreCase("Movie is not in the favorites"));
+        assertTrue(notInFavMsg.equalsIgnoreCase("Movie is not in the favorites"));
     }
 
     @Test
@@ -112,17 +112,17 @@ public class UserServiceTest {
         userService.addFavoriteMovie(newMovie2);
 
         String searchedMovieDetails1 = userService.SearchMovieByTitleAmongFavorites("Inception");
-        String expected_details1 = "Title: " + "Inception" + "\n" +
+        String expectedDetails1 = "Title: " + "Inception" + "\n" +
         "Cast: " + "[Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page]" + "\n" +
         "Category: " + "Sci-Fi"  + "\n" +
         "Release Date: " + "16/07/2010" + "\n" +
         "Budget: $" + "160000000";
 
         String searchedMovieDetails2 = userService.SearchMovieByTitleAmongFavorites("ABCD");
-        String expected_details2 = "Movie is not found in the favorites";
+        String expectedDetails2 = "Movie is not found in the favorites";
 
-        assertEquals(expected_details1, searchedMovieDetails1);
-        assertEquals(expected_details2, searchedMovieDetails2);
+        assertEquals(expectedDetails1, searchedMovieDetails1);
+        assertEquals(expectedDetails2, searchedMovieDetails2);
 
     
     }

@@ -12,7 +12,6 @@ public class MovieServiceTest {
 
     @BeforeEach
     public void setUp() {
-        System.out.println("Hello");
         this.movieService = new MovieService();
         Movie movie1 = new Movie("Inception", Arrays.asList("Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"), "Sci-Fi", LocalDate.of(2010, 7, 16),160000000);
         Movie movie2 = new Movie("The Matrix", Arrays.asList("Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"), "Action", LocalDate.of(1999, 3, 31), 63000000);
@@ -102,20 +101,20 @@ public class MovieServiceTest {
 
     @Test
     public void testGetMovieDetails_1() {
-        Movie searched_movie = movieService.searchMoviesByTitle("Inception");
-        String searchedMovieDetails = movieService.getMovieDetails(searched_movie);
-        String expected_details = "Title: " + "Inception" + "\n" +
+        Movie searchedMovie = movieService.searchMoviesByTitle("Inception");
+        String searchedMovieDetails = movieService.getMovieDetails(searchedMovie);
+        String expectedDetails = "Title: " + "Inception" + "\n" +
                "Cast: " + "[Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page]" + "\n" +
                "Category: " + "Sci-Fi"  + "\n" +
                "Release Date: " + "16/07/2010" + "\n" +
                "Budget: $" + "160000000";
-        assertEquals(expected_details, searchedMovieDetails);
+        assertEquals(expectedDetails, searchedMovieDetails);
     }
 
     @Test
     public void testGetMovieDetails_2(){
-        Movie searched_movie = movieService.searchMoviesByTitle("ABCD");
-        String searchedMovieDetails = movieService.getMovieDetails(searched_movie);
+        Movie searchedMovie = movieService.searchMoviesByTitle("ABCD");
+        String searchedMovieDetails = movieService.getMovieDetails(searchedMovie);
         assertEquals("N/A", searchedMovieDetails);
     }
 

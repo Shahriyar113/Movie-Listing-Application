@@ -2,9 +2,9 @@ package Source_code;
 
 import java.util.ArrayList;
 
-class nullMovie extends Movie{
+class NullMovie extends Movie{
 
-    public nullMovie() {
+    public NullMovie() {
         super(null, new ArrayList<>(), null, null,0);
     }
     

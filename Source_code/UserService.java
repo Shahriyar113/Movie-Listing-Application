@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 public class UserService {
-    private User user; //stores the user informations who is currently logged in
+    //stores the user informations who is currently logged in
+    private User user; 
+    //regex for email pattern
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
         "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" +
         "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"
@@ -28,8 +30,8 @@ public class UserService {
         return user;
     }
 
-
-    public boolean is_registration_successful()
+    //this method checks if the email is valid or not
+    public boolean isRegistrationSuccessful()
     {
         String email = user.getEmail();
 

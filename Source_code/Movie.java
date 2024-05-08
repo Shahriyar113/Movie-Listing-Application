@@ -4,19 +4,19 @@ import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
+//This class encapsulates the information of a movie
 public class Movie implements Comparable<Movie> {
     private String title;
     private List<String> cast;
     private String category;
-    private LocalDate release_date;
+    private LocalDate releaseDate;
     private int budget;
 
-    public Movie(String title, List<String> cast, String category, LocalDate release_date, int budget) {
+    public Movie(String title, List<String> cast, String category, LocalDate releaseDate, int budget) {
         this.title = title;
         this.cast = new ArrayList<>(cast);
         this.category = category;
-        this.release_date = release_date;
+        this.releaseDate = releaseDate;
         this.budget = budget;
     }
 
@@ -40,16 +40,16 @@ public class Movie implements Comparable<Movie> {
         this.category = category;
     }
 
-    public LocalDate getRelease_date() {
-        return release_date;
+    public LocalDate getReleaseDate() {
+        return releaseDate;
     }
 
     public int getBudget() {
         return budget;
     }
 
-    public void setRelease_date(LocalDate release_date) {
-        this.release_date = release_date;
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public String getDetails() {
@@ -57,10 +57,11 @@ public class Movie implements Comparable<Movie> {
         return "Title: " + title + "\n" +
                "Cast: " + cast.toString() + "\n" +
                "Category: " + category + "\n" +
-               "Release Date: " + release_date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "\n" +
+               "Release Date: " + releaseDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "\n" +
                "Budget: $" + budget;
     }
 
+    //This method is used to sort the movies by their titles
     @Override
     public int compareTo(Movie other) {
         return this.title.compareTo(other.title);

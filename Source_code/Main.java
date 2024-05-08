@@ -6,6 +6,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
 
+
+//Assumung that at a time only one user can use the system
 public class Main {
 
     private UserService userService;
@@ -16,7 +18,7 @@ public class Main {
         this.movieService = new MovieService();
     }
 
-    public void Load_movies_data()
+    public void LoadMoviesData()
     {
         Movie movie1 = new Movie("Inception", Arrays.asList("Leonardo DiCaprio", "Joseph Gordon-Levitt", "Heath Ledger"), "Sci-Fi", LocalDate.of(2010, 7, 16),160000000);
         Movie movie2 = new Movie("The Matrix", Arrays.asList("Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"), "Action", LocalDate.of(1999, 3, 31), 63000000);
@@ -42,7 +44,7 @@ public class Main {
 
     }
 
-    public void Show_home_menu()
+    public void ShowHomeMenu()
     {
         System.out.println("1. See All Movies");
         System.out.println("2. Search Movies by Title");
@@ -59,7 +61,7 @@ public class Main {
         Main main = new Main();
 
         //loading the movies data
-        main.Load_movies_data();
+        main.LoadMoviesData();
 
         //Now we will implement a console IO for this system
         //So,We will provide a menu to the user
@@ -73,7 +75,7 @@ public class Main {
             //validating the email
             User user = new User(email);
             main.userService.setUser(user);
-            if(main.userService.is_registration_successful())
+            if(main.userService.isRegistrationSuccessful())
             {
                 System.out.println();
                 System.out.println("---------Registration Successful---------------");
@@ -130,11 +132,11 @@ public class Main {
                                 break;
                             }
                             System.out.println();
-                            Movie searched_movie = main.movieService.searchMoviesByTitle(title);
-                            if (searched_movie instanceof nullMovie) {
+                            Movie searchedMovie = main.movieService.searchMoviesByTitle(title);
+                            if (searchedMovie instanceof NullMovie) {
                                 System.out.println("No movie found with this title");
                             } else {
-                                System.out.println(searched_movie.getDetails());
+                                System.out.println(searchedMovie.getDetails());
                             }
                         }
                         
@@ -147,11 +149,11 @@ public class Main {
                             if (title.equalsIgnoreCase("back")) {
                                 break;
                             }
-                            Movie searched_movie = main.movieService.searchMoviesByTitle(title);
-                            if (searched_movie instanceof nullMovie) {
+                            Movie searchedMovie = main.movieService.searchMoviesByTitle(title);
+                            if (searchedMovie instanceof NullMovie) {
                                 System.out.println("No movie found with this title");
                             } else {
-                                System.out.println(searched_movie.getDetails());
+                                System.out.println(searchedMovie.getDetails());
                                 System.out.println();
                             } 
                         }
@@ -225,15 +227,15 @@ public class Main {
                             if (title.equalsIgnoreCase("back")) {
                                 break;
                             }
-                            Movie searched_movie = main.movieService.searchMoviesByTitle(title);
-                            if (searched_movie instanceof nullMovie) {
+                            Movie searchedMovie = main.movieService.searchMoviesByTitle(title);
+                            if (searchedMovie instanceof NullMovie) {
                                 System.out.println();
                                 System.out.println("-----------No movie found with this title in our server--------------");
                                 System.out.println();
                             } else {
                                 //if movie is already in the favorites, then do not add it again
                                 System.out.println();
-                                System.out.println("-----------"+main.userService.addFavoriteMovie(searched_movie)+"-----------");
+                                System.out.println("-----------"+main.userService.addFavoriteMovie(searchedMovie)+"-----------");
                                 System.out.println();
                                
                             }
