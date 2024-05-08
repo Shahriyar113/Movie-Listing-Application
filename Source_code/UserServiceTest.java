@@ -53,10 +53,13 @@ public class UserServiceTest {
         User user = new User("user@example.com");
         userService.setUser(user);
         Movie newMovie = new Movie("Inception", Arrays.asList("Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"), "Sci-Fi", LocalDate.of(2010, 7, 16), 160000000);
-        userService.addFavoriteMovie(newMovie);
-        assertTrue(userService.getUser().getFavorites().contains(newMovie));
+        String succesfully_added_msg = userService.addFavoriteMovie(newMovie);
+        assertTrue(userService.getUser().getFavorites().contains(newMovie) && succesfully_added_msg.equalsIgnoreCase("Movie added to favorites"));
+        String already_in_fav_msg = userService.addFavoriteMovie(newMovie);
+        assertTrue(userService.getUser().getFavorites().contains(newMovie) && already_in_fav_msg.equalsIgnoreCase("Movie is already in the favorites"));
     }
 
+   
     @Test
     public void testRemoveFavoriteMovie() {
         User user = new User("user@example.com");
@@ -67,8 +70,15 @@ public class UserServiceTest {
         userService.addFavoriteMovie(newMovie1);
         userService.addFavoriteMovie(newMovie2);
 
-        userService.removeFavoriteMovie(newMovie1);
-        assertFalse(userService.getUser().getFavorites().contains(newMovie1));
+        assertTrue(userService.getUser().isMovieInFavorites("Inception"));
+
+        String successfully_removed_msg = userService.removeFavoriteMovie("Inception");
+        assertFalse(userService.getUser().isMovieInFavorites("Inception"));
+        assertTrue(successfully_removed_msg.equalsIgnoreCase("Movie removed from favorites"));
+
+        String not_in_fav_msg = userService.removeFavoriteMovie("newMovie1");
+        assertFalse(userService.getUser().isMovieInFavorites("Inception"));
+        assertTrue(not_in_fav_msg.equalsIgnoreCase("Movie is not in the favorites"));
     }
 
     @Test

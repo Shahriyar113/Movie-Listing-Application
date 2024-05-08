@@ -46,7 +46,7 @@ public class User {
         return "Movie is not found in the favorites";
     }
 
-    public void removeFavorite(String movieTitle) {
+    public void removeFavorite(Movie movie) {
         favorites.remove(movie);
     }
 

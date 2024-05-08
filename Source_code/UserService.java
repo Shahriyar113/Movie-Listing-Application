@@ -49,12 +49,31 @@ public class UserService {
           }
     }
 
-    public void addFavoriteMovie(Movie movie) { 
+    public String addFavoriteMovie(Movie movie) { 
+        //if the movie is already in the favorites list, then return a message
+        if(user.isMovieInFavorites(movie.getTitle())) {
+            return "Movie is already in the favorites";
+        }
+
         user.addFavorite(movie);
+        return "Movie added to favorites";
     }
 
-    public void removeFavoriteMovie(Movie movie) {
-        user.removeFavorite(movie);
+    public String removeFavoriteMovie(String movieTitle) {
+        //if the movie is not in the favorites list, then return a message
+        if(!user.isMovieInFavorites(movieTitle)) {
+            return "Movie is not in the favorites";
+        }
+
+        Set<Movie> favorites = user.getFavorites();
+        for(Movie movie : favorites) {
+            if(movie.getTitle().equalsIgnoreCase(movieTitle)) {
+                user.removeFavorite(movie);
+                return "Movie removed from favorites";
+            }
+        }
+
+        return "Movie is not in the favorites";
     }
 
     public boolean isMovieInFavorites(String movieTitle)
