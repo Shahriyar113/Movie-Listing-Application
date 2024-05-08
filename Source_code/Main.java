@@ -2,6 +2,7 @@ package Source_code;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -17,16 +18,16 @@ public class Main {
 
     public void Load_movies_data()
     {
-        Movie movie1 = new Movie("Inception", Arrays.asList("Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"), "Sci-Fi", LocalDate.of(2010, 7, 16),160000000);
+        Movie movie1 = new Movie("Inception", Arrays.asList("Leonardo DiCaprio", "Joseph Gordon-Levitt", "Heath Ledger"), "Sci-Fi", LocalDate.of(2010, 7, 16),160000000);
         Movie movie2 = new Movie("The Matrix", Arrays.asList("Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"), "Action", LocalDate.of(1999, 3, 31), 63000000);
         Movie movie3 = new Movie("Gladiator", Arrays.asList("Russell Crowe", "Joaquin Phoenix", "Connie Nielsen"), "Historical Drama", LocalDate.of(2000, 5, 5), 103000000);
         Movie movie4 = new Movie("The Grand Budapest Hotel", Arrays.asList("Ralph Fiennes", "F. Murray Abraham", "Mathieu Amalric"), "Comedy", LocalDate.of(2014, 3, 28), 25000000);
-        Movie movie5 = new Movie("Interstellar", Arrays.asList("Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"), "Sci-Fi", LocalDate.of(2014, 11, 7), 63000000);
+        Movie movie5 = new Movie("Interstellar", Arrays.asList("Matthew McConaughey", "Heath Ledger", "Jessica Chastain"), "Sci-Fi", LocalDate.of(2014, 11, 7), 63000000);
         Movie movie6 = new Movie("Gone Girl", Arrays.asList("Ben Affleck", "Rosamund Pike", "Neil Patrick Harris"), "Thriller", LocalDate.of(2014, 10, 3), 61000000);
         Movie movie7 = new Movie("The Dark Knight", Arrays.asList("Christian Bale", "Heath Ledger", "Aaron Eckhart"), "Action", LocalDate.of(2008, 7, 18), 185000000);
         Movie movie8 = new Movie("The Social Network", Arrays.asList("Jesse Eisenberg", "Andrew Garfield", "Justin Timberlake"), "Drama", LocalDate.of(2010, 10, 1), 40000000);
         Movie movie9 = new Movie("Avatar", Arrays.asList("Sam Worthington", "Zoe Saldana", "Sigourney Weaver"), "Sci-Fi", LocalDate.of(2009, 12, 18), 237000000);
-        Movie movie10 = new Movie("Mad Max: Fury Road", Arrays.asList("Tom Hardy", "Charlize Theron", "Nicholas Hoult"), "Action", LocalDate.of(2015, 5, 15), 150000000);
+        Movie movie10 = new Movie("Mad Max: Fury Road", Arrays.asList("Tom Hardy", "Charlize Theron", "Heath Ledger"), "Action", LocalDate.of(2015, 5, 15), 150000000);
         movieService.addMovie(movie1);
         movieService.addMovie(movie2);
         movieService.addMovie(movie3);
@@ -49,7 +50,7 @@ public class Main {
         System.out.println("4. Search Movies by Category");
         System.out.println("5. Add Movie to Favorites");
         System.out.println("6. Remove Movie from Favorites");
-        System.out.println("7. Show Favorite Movies");
+        System.out.println("7. Show Personal Details and Favorite Movies");
         System.out.println("8. Exit");
     }
 
@@ -74,10 +75,15 @@ public class Main {
             main.userService.setUser(user);
             if(main.userService.is_registration_successful())
             {
-                System.out.println("Registration Successful");
+                System.out.println();
+                System.out.println("---------Registration Successful---------------");
+                System.out.println();
+                System.out.println("--------------------WELCOME TO MOVIE WORLD---------------");
+
+                System.out.println();
 
                 while (true) {
-
+                    System.out.println();
                     System.out.println("Home Menu");
                     System.out.println("--------------");
                     System.out.println();
@@ -90,10 +96,22 @@ public class Main {
                     System.out.println("7. Show Favorite Movies");
                     System.out.println("8. Exit");
                     System.out.println();
-                    System.out.println("Enter your choice from (1-8): ");
+                    System.out.print("Enter your choice from (1-8): ");
 
-                    int choice = input.nextInt();
-                    input.nextLine();
+                    int choice = 0;
+
+                    //handling inputMismatchException
+                    //handling the case if user enters a string instead of an integer
+                    try {
+                         choice = input.nextInt();
+                         input.nextLine();
+                    } catch (InputMismatchException e) {
+                        System.out.println();
+                        System.out.println("Invalid choice. Please try again");
+                        input.nextLine();
+                        continue;
+                    }
+                    System.out.println();
 
                     if (choice == 1) {
                         //See All Movies
@@ -106,11 +124,12 @@ public class Main {
                         }
                         while (true) {
                             System.out.println();
-                            System.out.print("Enter the title of the movie you want to see details(or enter \"back\" to go back to the main menu): ");
+                            System.out.print("Enter the title of the movie you want to see details(or enter \"back\" to go back to the home menu): ");
                             String title = input.nextLine();
                             if (title.equalsIgnoreCase("back")) {
                                 break;
                             }
+                            System.out.println();
                             Movie searched_movie = main.movieService.searchMoviesByTitle(title);
                             if (searched_movie instanceof nullMovie) {
                                 System.out.println("No movie found with this title");
@@ -122,8 +141,9 @@ public class Main {
                     } else if (choice == 2) {
                         //Search Movies by Title
                         while (true) {
-                            System.out.print("Enter the title of the movie you want to search(or enter \"back\" to go back to the main menu): ");
+                            System.out.print("Enter the title of the movie you want to search(or enter \"back\" to go back to the home menu): ");
                             String title = input.nextLine();
+                            System.out.println();
                             if (title.equalsIgnoreCase("back")) {
                                 break;
                             }
@@ -132,6 +152,7 @@ public class Main {
                                 System.out.println("No movie found with this title");
                             } else {
                                 System.out.println(searched_movie.getDetails());
+                                System.out.println();
                             } 
                         }
                         
@@ -140,14 +161,21 @@ public class Main {
 
                         while (true) {
 
-                            System.out.print("Enter the name of the cast member(or enter \"back\" to go back to the main menu): ");
+                            System.out.print("Enter the name of the cast member(or enter \"back\" to go back to the home menu): ");
                             String castMember = input.nextLine();
                             if (castMember.equalsIgnoreCase("back")) {
                                 break;
                             }
+                            System.out.println();
                             System.out.println("Movies with this cast: ");
                             System.out.println("----------------------");
                             System.out.println();
+                            //if no movie is found with this cast, then print a message
+                            if(main.movieService.searchMoviesByCast(castMember).isEmpty())
+                            {
+                                System.out.println("No movie found with this cast");
+                                System.out.println();
+                            }
                             for (Movie movie : main.movieService.searchMoviesByCast(castMember)) {
                                 System.out.println(movie.getDetails());
                                 System.out.println();
@@ -158,14 +186,21 @@ public class Main {
                     } else if (choice == 4) {
                         //Search Movies by Category
                         while (true) {
-                            System.out.print("Enter the category of the movie you want to search(or enter \"back\" to go back to the main menu): ");
+                            System.out.print("Enter the category of the movie you want to search(or enter \"back\" to go back to the home menu): ");
                             String category = input.nextLine();
                             if (category.equalsIgnoreCase("back")) {
                                 break;
                             }
+                            System.out.println();
                             System.out.println("Movies in this category: ");
                             System.out.println("------------------------");
                             System.out.println();
+                            //if no movie is found with this category, then print a message
+                            if(main.movieService.searchMoviesByCategory(category).isEmpty())
+                            {
+                                System.out.println("No movie found with this category");
+                                System.out.println();
+                            }
                             for (Movie movie : main.movieService.searchMoviesByCategory(category)) {
                                 System.out.println(movie.getDetails());
                                 System.out.println();
@@ -185,14 +220,21 @@ public class Main {
                             }
                             System.out.println();
 
-                            System.out.print("Now enter the title of the movie you want to add to favorites(or enter \"back\" to go back to the main menu): ");
+                            System.out.print("Now enter the title of the movie you want to add to favorites(or enter \"back\" to go back to the home menu): ");
                             String title = input.nextLine();
+                            if (title.equalsIgnoreCase("back")) {
+                                break;
+                            }
                             Movie searched_movie = main.movieService.searchMoviesByTitle(title);
                             if (searched_movie instanceof nullMovie) {
-                                System.out.println("No movie found with this title in our server");
+                                System.out.println();
+                                System.out.println("-----------No movie found with this title in our server--------------");
+                                System.out.println();
                             } else {
                                 //if movie is already in the favorites, then do not add it again
-                                System.out.println(main.userService.addFavoriteMovie(searched_movie));
+                                System.out.println();
+                                System.out.println("-----------"+main.userService.addFavoriteMovie(searched_movie)+"-----------");
+                                System.out.println();
                                
                             }
                         
@@ -210,14 +252,16 @@ public class Main {
                             index++;
                         }
                         System.out.println();
-                        System.out.print("Now enter the title of the movie you want to remove from favorites(or enter \"back\" to go back to the main menu): ");
+                        System.out.print("Now enter the title of the movie you want to remove from favorites(or enter \"back\" to go back to the home menu): ");
                         //Remove Movie from Favorites
                         String title = input.nextLine();
                         if (title.equalsIgnoreCase("back")) {
                             break;
                         }
                         
-                        System.out.println(main.userService.removeFavoriteMovie(title));
+                        System.out.println();
+                        System.out.println("-----------"+main.userService.removeFavoriteMovie(title)+"-----------");
+                        System.out.println();
                     
                 }
                         
@@ -230,7 +274,7 @@ public class Main {
                         System.out.println("-----------------");
                         System.out.println();
                         System.out.println(main.userService.getUserDetails());
-
+                        System.out.println();
                         System.out.println("Description of your favorite movies: ");
                         System.out.println("--------------------------------------");
                         Set<Movie> favoriteMovies = main.userService.getUser().getFavorites();
@@ -242,19 +286,25 @@ public class Main {
                         //search a movie among favorites
                         while(true)
                         {
-                            System.out.print("Enter the title of the movie you want to search among favorites(or enter \"back\" to go back to the main menu): ");
+                            System.out.print("Enter the title of the movie you want to search among favorites(or enter \"back\" to go back to the home menu): ");
                             String title = input.nextLine();
                             if(title.equalsIgnoreCase("back"))
                             {
                                 break;
                             }
+                            System.out.println();
+                            System.out.println("Description of the movie: ");
+                            System.out.println("---------------------------");
+                            System.out.println();
                             System.out.println(main.userService.SearchMovieByTitleAmongFavorites(title));
+                            System.out.println();
 
                         }
                       }
                       else if(choice == 8)
                       {
-                          System.out.println("Thank you for using our system. Goodbye!");
+                          System.out.println("--------------Thank you for using our system. Goodbye!----------------------");
+                          System.out.println();
                           System.exit(0);
                       }
                       else
